@@ -4,9 +4,7 @@ import com.example.jobapplicationtracker.entities.Application;
 import com.example.jobapplicationtracker.services.ApplicationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,4 +20,19 @@ public class ApplicationController {
         return service.getApplications();
     }
 
+    @PostMapping("/newApplication")
+    public Application addNewApplication(@RequestBody Application application){
+        return service.addApplication(application);
+    }
+
+    @DeleteMapping("/deleteApplication/{applicationId}")
+    public Application deleteApplication(@PathVariable Long applicationId){
+       return service.deleteApplication(applicationId);
+    }
+
+    @PutMapping("/updateApplication")
+    public Application updateApplication(@PathVariable("applicationId") Long applicationId,
+                                         @RequestBody Application application){
+        return service.updateApplication(applicationId, application);
+    }
 }

@@ -3,10 +3,31 @@ package com.example.jobapplicationtracker.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "APPLICATION_TRACKER")
+@Table(name = "APPLICATIONS")
 public class Application {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long applicationId;
+    private String companyName;
+    private String position;
+    private String location;
+    private String jobType;
+    private String applicationStatus;
+
+    public Application(String companyName, String position, String location, String jobType, String applicationStatus) {
+        this.companyName = companyName;
+        this.position = position;
+        this.location = location;
+        this.jobType = jobType;
+        this.applicationStatus = applicationStatus;
+    }
+
+    public Application() {
+
+    }
+
     public Long getId() {
-        return id;
+        return applicationId;
     }
 
     public String getCompanyName() {
@@ -30,7 +51,7 @@ public class Application {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.applicationId = applicationId;
     }
 
     public void setCompanyName(String companyName) {
@@ -52,14 +73,5 @@ public class Application {
     public void setApplicationStatus(String applicationStatus) {
         this.applicationStatus = applicationStatus;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String companyName;
-    private String position;
-    private String location;
-    private String jobType;
-    private String applicationStatus;
 
 }
