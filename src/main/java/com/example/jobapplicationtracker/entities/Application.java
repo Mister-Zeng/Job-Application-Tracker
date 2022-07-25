@@ -8,10 +8,15 @@ public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applicationId;
+    @Column(name = "COMPANY_NAME")
     private String companyName;
+    @Column(name = "POSITION")
     private String position;
+    @Column(name = "LOCATION")
     private String location;
+    @Column(name = "JOB_TYPE")
     private String jobType;
+    @Column(name = "APPLICATION_STATUS")
     private String applicationStatus;
 
     public Application(String companyName, String position, String location, String jobType, String applicationStatus) {
@@ -74,4 +79,15 @@ public class Application {
         this.applicationStatus = applicationStatus;
     }
 
+    @Override
+    public String toString() {
+        return "Application{" +
+                "applicationId=" + applicationId +
+                ", companyName='" + companyName + '\'' +
+                ", position='" + position + '\'' +
+                ", location='" + location + '\'' +
+                ", jobType='" + jobType + '\'' +
+                ", applicationStatus='" + applicationStatus + '\'' +
+                '}';
+    }
 }
