@@ -2,6 +2,7 @@ package com.example.jobapplicationtracker.controllers;
 
 import com.example.jobapplicationtracker.entities.Application;
 import com.example.jobapplicationtracker.services.ApplicationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +12,17 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/application")
 public class ApplicationController {
+    @Autowired
     ApplicationService applicationService;
 
-    @GetMapping("/applications/{applicationId}")
+    @GetMapping("/{applicationId}")
     public ResponseEntity<Application> getApplication(@PathVariable Long applicationId) {
         return ResponseEntity.ok(this.applicationService.getApplication(applicationId));
     }
 
-    @GetMapping("/applications")
+    @GetMapping("/")
     public ResponseEntity<List<Application>> getUserApplications(@RequestBody String username){
         return ResponseEntity.ok().body(this.applicationService.getUserApplications(username));
     }

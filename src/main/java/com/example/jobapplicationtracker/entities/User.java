@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static javax.persistence.FetchType.EAGER;
 
@@ -23,5 +24,8 @@ public class User {
     private String email;
     private String password;
     @ManyToMany(fetch = EAGER)
-    private ArrayList<Application> applications = new ArrayList<>();
+    private Collection<Application> applications = new ArrayList<>();
+    @ManyToMany(fetch = EAGER)
+    private Collection<Role> roles = new ArrayList<>();
+
 }
