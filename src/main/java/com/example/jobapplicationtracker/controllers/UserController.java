@@ -2,23 +2,28 @@ package com.example.jobapplicationtracker.controllers;
 
 import com.example.jobapplicationtracker.entities.User;
 import com.example.jobapplicationtracker.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/")
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    @GetMapping("/users")
+    public ResponseEntity<List<User>>getUsers(){
+        return ResponseEntity.ok().body(userService.getUsers());
     }
 
-
+    @PostMapping("/users")
+    public ResponseEntity<User>saveUser(@RequestBody User user){
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
+        return ResponseEntity.created(uri).body(userService.saveUser(user));
+    }
 }
