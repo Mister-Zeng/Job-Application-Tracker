@@ -1,16 +1,13 @@
 package com.example.jobapplicationtracker.services;
 
 import com.example.jobapplicationtracker.entities.Application;
-import com.example.jobapplicationtracker.entities.User;
 import com.example.jobapplicationtracker.repositories.ApplicationRepository;
-import com.example.jobapplicationtracker.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,8 +17,6 @@ import java.util.Optional;
 public class ApplicationServiceImpl implements ApplicationService {
     @Autowired
     ApplicationRepository applicationRepository;
-    @Autowired
-    UserRepository userRepository;
 
     @Override
     public Application getApplication(Long applicationId) {
@@ -29,19 +24,11 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationRepository.findById(applicationId).orElse(null);
     }
 
-    @Override
-    public List<Application> getUserApplications(String username){
-        log.info("Fetching all applications.");
-        User user = userRepository.findByUsername(username);
-
-        return (List<Application>) user.getApplications();
-    }
 
     @Override
-    public Application addApplication(Application application, String username){
+    public Application addApplication(Application application){
         log.info("Adding new application {} {} to the database.", application.getApplicationId(), application.getCompanyName());
-        User user = this.userRepository.findByUsername(username);
-        user.getApplications().add(application);
+
         return this.applicationRepository.save(application);
     }
 

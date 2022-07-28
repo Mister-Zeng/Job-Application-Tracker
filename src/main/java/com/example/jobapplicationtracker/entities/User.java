@@ -5,13 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "USER")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -23,9 +19,4 @@ public class User {
     private String username;
     private String email;
     private String password;
-    @ManyToMany(fetch = EAGER)
-    private Collection<Application> applications = new ArrayList<>();
-    @ManyToMany(fetch = EAGER)
-    private Collection<Role> roles = new ArrayList<>();
-
 }

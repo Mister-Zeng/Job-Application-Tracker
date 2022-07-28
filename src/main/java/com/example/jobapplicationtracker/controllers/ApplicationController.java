@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/application")
@@ -22,15 +21,10 @@ public class ApplicationController {
         return ResponseEntity.ok(this.applicationService.getApplication(applicationId));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<Application>> getUserApplications(@RequestBody String username){
-        return ResponseEntity.ok().body(this.applicationService.getUserApplications(username));
-    }
-
     @PostMapping("/newApplication")
-    public ResponseEntity<Application> addNewApplication(@RequestBody Application application, String username){
+    public ResponseEntity<Application> addNewApplication(@RequestBody Application application){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/application/add").toUriString());
-        return ResponseEntity.created(uri).body(this.applicationService.addApplication(application, username));
+        return ResponseEntity.created(uri).body(this.applicationService.addApplication(application));
     }
 
     @DeleteMapping("/deleteApplication/{applicationId}")
