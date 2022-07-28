@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Applications")
+@Table(name = "APPLICATION")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -20,4 +20,6 @@ public class Application {
     private String location;
     private String jobType;
     private String applicationStatus;
+    @ManyToOne(fetch=FetchType.LAZY)
+    private User user;
 }
