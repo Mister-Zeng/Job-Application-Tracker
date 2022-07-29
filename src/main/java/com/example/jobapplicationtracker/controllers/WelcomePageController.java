@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-
 
 @RestController
 public class WelcomePageController {
@@ -28,7 +26,7 @@ public class WelcomePageController {
     }
 
     @PostMapping("/authenticate")
-    public String generateToken(@RequestBody AuthorizeReq authorizeReq) throws ServletException {
+    public String generateToken(@RequestBody AuthorizeReq authorizeReq) throws Exception {
 
         try {
             System.out.println("Action in controller authenticated....");
@@ -37,7 +35,7 @@ public class WelcomePageController {
             );
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ServletException("Invalid username/password");
+            throw new Exception("Invalid username/password");
         }
 
         return jwtUtilService.generateToken(authorizeReq.getUsername());
